@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 public class InfoActivity extends AppCompatActivity {
 
-    View tvAddress;
+    View tvAddress, tvPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         tvAddress = findViewById(R.id.text_view_address);
+        tvAddress = findViewById(R.id.text_view_phone);
 
         Uri uri = Uri.parse("android.resource://com.codeschool.candycoded/" + R.drawable.store_front);
         ImageView candyStoreImageView = (ImageView)findViewById(R.id.image_view_candy_store);
@@ -29,6 +30,7 @@ public class InfoActivity extends AppCompatActivity {
                 into(candyStoreImageView);
 
         createMapIntent(tvAddress);
+        createPhoneIntent(tvPhone);
     }
 
     public void createMapIntent(View view)
@@ -41,10 +43,13 @@ public class InfoActivity extends AppCompatActivity {
         {
             startActivity(mapIntent);
         }
-        else
-        {
-            Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
-        }
+    }
+    public void createPhoneIntent(View view)
+    {
+//        Uri uri =  Uri.parse("tel:0123456789");
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:0123456789"));
+        startActivity(callIntent);
     }
 
     // ***
