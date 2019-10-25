@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +61,20 @@ public class DetailActivity extends AppCompatActivity {
             Picasso.with(this).load(mCandyImageUrl).into(imageView);
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        createShareIntent();
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void createShareIntent()
+    {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String shareString = SHARE_DESCRIPTION + HASHTAG_CANDYCODED + mCandyImageUrl;
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareString);
+        startActivity(shareIntent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
